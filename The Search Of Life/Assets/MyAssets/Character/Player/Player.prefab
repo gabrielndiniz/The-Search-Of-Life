@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 371569080900223444}
   - component: {fileID: 4659295714157544869}
   - component: {fileID: 6670176801674009873}
+  - component: {fileID: 2242054113154484661}
+  - component: {fileID: 7459090392229091160}
   m_Layer: 0
-  m_Name: idle1
+  m_Name: PlayerController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 1180677103008472481}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d257e56ba44e24819a0a36901dd0f2f1, type: 2}
+  m_Controller: {fileID: 9100000, guid: 442a15ea729782e489661628dec1edbb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -106,6 +108,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2242054113154484661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180677103008472481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5af6f14b05b52cf4b892b340723f7d05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalCollider: {fileID: 7759913650342664618}
+  attack1Damage: 15
+--- !u!114 &7459090392229091160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180677103008472481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604f3fe103e6abb4ebe5c37afe34f5df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6708355418013635602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -197,18 +225,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4976461315900106707, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
   m_PrefabInstance: {fileID: 6708355418013635602}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &226335825616762549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735905137986630593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 604f3fe103e6abb4ebe5c37afe34f5df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8025260348904418324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,5 +242,50 @@ MonoBehaviour:
       m_Calls: []
   onDie:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5237730388714493317}
+        m_TargetAssemblyTypeName: BeatEmUp.Movement.Movement, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8079625735074203358}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   maxHealthPoints: 100
+--- !u!114 &5237730388714493317 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1560767460387160471, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
+  m_PrefabInstance: {fileID: 6708355418013635602}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735905137986630593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f02f113d1ae77c408a95fe767b95fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &7759913650342664618 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 3938430774619147704, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
+  m_PrefabInstance: {fileID: 6708355418013635602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &8079625735074203358 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 3258430719431987916, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
+  m_PrefabInstance: {fileID: 6708355418013635602}
+  m_PrefabAsset: {fileID: 0}

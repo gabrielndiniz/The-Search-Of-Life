@@ -79,6 +79,10 @@ namespace BeatEmUp.Movement
 
         public void StopMovement()
         {
+            if (OnAir())
+            {
+                return;
+            }
             transform.Translate(-movement/20);
             movement = Vector3.zero;
         }
@@ -142,10 +146,6 @@ namespace BeatEmUp.Movement
             {
                 if (overlapCollider.CompareTag("Terrain"))
                 {
-                    if (CompareTag("Player"))
-                    {
-                        Debug.Log(overlapCollider);
-                    }
                     return false;
                 }
             }
