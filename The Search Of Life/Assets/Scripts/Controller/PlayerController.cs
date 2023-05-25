@@ -1,3 +1,4 @@
+using BeatEmUp.Combat;
 using UnityEngine;
 
 namespace BeatEmUp.Controller
@@ -7,12 +8,15 @@ namespace BeatEmUp.Controller
 
         private float horizontalInput;
         private float verticalInput;
+        private float attacklInput;
         private BeatEmUp.Movement.Movement movement;
         private bool bJump = false;
+        private Health health;
 
         private void Start()
         {
             movement = GetComponent<BeatEmUp.Movement.Movement>();
+            health = GetComponent<Health>();
         }
 
         void LateUpdate()
@@ -38,6 +42,7 @@ namespace BeatEmUp.Controller
                 movement.Jump(horizontalInput);
                 bJump = false;
             }
+            
         }
     }
 }

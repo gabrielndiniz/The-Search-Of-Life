@@ -127,7 +127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4058326380071922254, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4646921374672778093, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
       propertyPath: m_RootOrder
@@ -209,3 +209,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604f3fe103e6abb4ebe5c37afe34f5df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8025260348904418324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735905137986630593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eefe4608e86ddd242bcb5bfad6a56139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  takeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onDie:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHealthPoints: 100

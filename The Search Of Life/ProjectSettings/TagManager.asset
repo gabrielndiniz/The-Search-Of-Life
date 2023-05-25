@@ -8,6 +8,7 @@ TagManager:
   - NPC
   - Enemy
   - ImpactAssistant
+  - Terrain
   layers:
   - Default
   - TransparentFX
