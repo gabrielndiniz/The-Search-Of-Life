@@ -1,10 +1,14 @@
 using UnityEngine;
 
-public class CameraFacing : MonoBehaviour
+namespace BeatEmUp.Camera
 {
-    [SerializeField] private Camera camera;
-    void LateUpdate()
+    public class CameraFacing : MonoBehaviour
     {
-         transform.rotation = camera.transform.rotation;
+        [SerializeField] private UnityEngine.Camera camera;
+
+        void LateUpdate()
+        {
+            transform.rotation = camera.transform.rotation;
+        }
     }
 }
