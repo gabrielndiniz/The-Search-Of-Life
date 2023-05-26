@@ -10,18 +10,16 @@ namespace BeatEmUp.Controller
         private float verticalInput;
         private bool attacklInput;
         private BeatEmUp.Movement.Movement movement;
-        private bool bJump = false;
-        private bool bIsAttacking = false;
         private Health health;
         private Combat.Combat combat;
-        private Animator animator;
+        private ActionScheduler actionScheduler;
 
         private void Start()
         {
             movement = GetComponentInParent<BeatEmUp.Movement.Movement>();
             health = GetComponentInParent<Health>();
             combat = GetComponent<Combat.Combat>();
-            animator = GetComponent<Animator>();
+            actionScheduler = GetComponent<ActionScheduler>();
         }
 
         void LateUpdate()
@@ -29,21 +27,21 @@ namespace BeatEmUp.Controller
             
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical");
+
+            if (combat.IsAttacking())
+            {
+                return;
+            }
             
             if (Input.GetButtonDown("Fire1"))
             {
-                movement.StopMovement();
-                if (!bIsAttacking)
-                {
-                    bIsAttacking = true;
-                    animator.SetBool("IsAttacking",bIsAttacking);
-                }
+                combat.ExecuteAttack();
+                return;
             }
             
             if (horizontalInput != 0 || verticalInput != 0)
             {
                 movement.ExecuteMovement(horizontalInput, verticalInput);
-                animator.SetFloat("Speed", MathF.Max(Mathf.Abs(horizontalInput),Mathf.Abs(verticalInput)));
             }
             else
             {
@@ -51,25 +49,11 @@ namespace BeatEmUp.Controller
             }
             
 
-            bJump = Input.GetAxis("Jump") > 0;
-            if (bJump)
+            if (Input.GetButtonDown("Jump"))
             {
                 movement.Jump(horizontalInput);
-                animator.SetBool("IsJumping",bJump);
             }
             
-        }
-
-        public void StopAttacking()
-        {
-            bIsAttacking = false;
-            animator.SetBool("IsAttacking",bIsAttacking);
-        }
-
-        public void StopJumping()
-        {
-            bJump = false;
-            animator.SetBool("IsJumping",bJump);
         }
     }
 }

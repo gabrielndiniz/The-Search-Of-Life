@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6670176801674009873}
   - component: {fileID: 2242054113154484661}
   - component: {fileID: 7459090392229091160}
+  - component: {fileID: 6452068806596853194}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -121,7 +122,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalCollider: {fileID: 7759913650342664618}
-  attack1Damage: 15
+  attacksDamage:
+  - 15
+  - 15
+  - 20
 --- !u!114 &7459090392229091160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +136,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 604f3fe103e6abb4ebe5c37afe34f5df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6452068806596853194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180677103008472481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 651c2e60a696bd14a9051f77a65defba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6708355418013635602

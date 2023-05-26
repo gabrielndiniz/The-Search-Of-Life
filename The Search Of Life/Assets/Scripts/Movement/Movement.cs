@@ -1,10 +1,10 @@
 using System;
+using BeatEmUp.Controller;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace BeatEmUp.Movement
 {
-    public class Movement : MonoBehaviour
+    public class Movement : MonoBehaviour, IAction
     {
         [SerializeField] private float movementSpeed = 5f;
         [SerializeField] private float jumpSpeed = 5f;
@@ -18,10 +18,17 @@ namespace BeatEmUp.Movement
         private bool bJump = false;
         private float lastHorizontalAxis = 0;
         private Vector3 movement = Vector3.zero;
+        private Animator animator;
+
+        private static readonly int IsJumping = Animator.StringToHash("IsJumping");
+
+        private static readonly int Speed = Animator.StringToHash("Speed");
+        //private Combat.Combat combat;
 
         private void Start()
         {
-
+            //combat = GetComponentInChildren<Combat.Combat>();
+            animator = GetComponentInChildren<Animator>();
             if (horizontalCollider == null || verticalCollider == null)
             {
                 Debug.LogError(
@@ -36,18 +43,31 @@ namespace BeatEmUp.Movement
             {
                 ySpeed -= characterGravity * Time.deltaTime;
                 airMovement = new Vector3(airMovement.x,ySpeed,airMovement.z);
-                Debug.Log(airMovement);
                 transform.Translate(airMovement*Time.deltaTime);
             }
+            
+            Debug.Log("Speed = " + lastHorizontalAxis);
         }
+        
+        
 
 
         public void ExecuteMovement(float horizontalAxis, float verticalAxis)
         {
+            /*if (combat)
+            {
+                if (combat.IsAttacking())
+                {
+                    StopMovement();
+                    return;
+                }
+            }*/
             if (OnAir())
             {
                 return;
             }
+            GetComponentInChildren<ActionScheduler>().StartAction(this);
+            animator.SetFloat(Speed, MathF.Max(Mathf.Abs(horizontalAxis),Mathf.Abs(verticalAxis)));
             if (lastHorizontalAxis < 0)
             {
                 verticalAxis = -verticalAxis;
@@ -79,10 +99,6 @@ namespace BeatEmUp.Movement
 
         public void StopMovement()
         {
-            if (OnAir())
-            {
-                return;
-            }
             transform.Translate(-movement/20);
             movement = Vector3.zero;
         }
@@ -92,12 +108,14 @@ namespace BeatEmUp.Movement
         {
             if (!OnAir())
             {
+                animator.SetFloat(Speed, Mathf.Abs(horizontalAxis));
                 horizontalAxis = RotateCharacter(horizontalAxis);
-                
+                GetComponentInChildren<ActionScheduler>().StartAction(this);
+                bJump = true;
+                animator.SetBool("IsJumping",bJump);
                 ySpeed = jumpSpeed;
                 airMovement = (Vector3.up + new Vector3(horizontalAxis, 0, 0)) * jumpSpeed;
                 transform.Translate(airMovement*Time.deltaTime);
-                bJump = true;
             }
         }
 
@@ -146,12 +164,40 @@ namespace BeatEmUp.Movement
             {
                 if (overlapCollider.CompareTag("Terrain"))
                 {
+                    StopJumping();
                     return false;
                 }
             }
     
+            if (!bJump)
+            {
+                bJump = true;
+                animator.SetBool(IsJumping,bJump);
+                animator.SetFloat(Speed,Mathf.Abs(lastHorizontalAxis));
+            }
             return true; 
         }
 
+        public void Cancel()
+        {
+            if (!OnAir())
+            {
+                ExecuteMovement(0,0);
+                animator.SetFloat(Speed, 0);
+            }
+            StopMovement();
+        }
+        
+        public void StopJumping()
+        {
+            if (bJump)
+            {
+                GetComponentInChildren<ActionScheduler>().StartAction(this);
+                bJump = false;
+                animator.SetBool("IsJumping",bJump);
+                ExecuteMovement(0, 0);
+                animator.SetFloat(Speed, 0);
+            }
+        }
     }
 }
