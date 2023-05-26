@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -22,6 +23,7 @@ namespace BeatEmUp.Combat
         }
 
         private bool isDead = false;
+        private static readonly int Dead = Animator.StringToHash("IsDead");
 
         public bool IsDead()
         {
@@ -56,8 +58,8 @@ namespace BeatEmUp.Combat
         private void Die()
         {
             if(isDead) return;
-            GetComponent<Animator>().SetTrigger("die");
             isDead = true;
+            GetComponentInChildren<Animator>().SetTrigger("Die");
         }
     } 
 }
