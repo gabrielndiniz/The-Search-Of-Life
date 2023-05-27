@@ -22,7 +22,7 @@ namespace BeatEmUp.Combat
             
             if (enemyHealth)
             {
-                enemyHealthBar.fillAmount = playerHealth.GetHealthPoints() / playerHealth.GetMaxHealthPoints();
+                enemyHealthBar.fillAmount = enemyHealth.GetHealthPoints() / enemyHealth.GetMaxHealthPoints();
             }
         }
     }

@@ -23,11 +23,9 @@ namespace BeatEmUp.Movement
         private static readonly int IsJumping = Animator.StringToHash("IsJumping");
 
         private static readonly int Speed = Animator.StringToHash("Speed");
-        //private Combat.Combat combat;
 
         private void Start()
         {
-            //combat = GetComponentInChildren<Combat.Combat>();
             animator = GetComponentInChildren<Animator>();
             if (horizontalCollider == null || verticalCollider == null)
             {
@@ -46,28 +44,21 @@ namespace BeatEmUp.Movement
                 transform.Translate(airMovement*Time.deltaTime);
             }
             
-            Debug.Log("Speed = " + lastHorizontalAxis);
         }
-        
-        
 
-
-        public void ExecuteMovement(float horizontalAxis, float verticalAxis)
+        public bool ExecuteMovement(float horizontalAxis, float verticalAxis, bool bUseLimit)
         {
-            /*if (combat)
-            {
-                if (combat.IsAttacking())
-                {
-                    StopMovement();
-                    return;
-                }
-            }*/
             if (OnAir())
             {
-                return;
+                return false;
             }
-            GetComponentInChildren<ActionScheduler>().StartAction(this);
-            animator.SetFloat(Speed, MathF.Max(Mathf.Abs(horizontalAxis),Mathf.Abs(verticalAxis)));
+            
+            bool freeMovement = true;
+
+            if (!animator)
+            {
+                animator = GetComponentInChildren<Animator>();
+            }
             if (lastHorizontalAxis < 0)
             {
                 verticalAxis = -verticalAxis;
@@ -87,14 +78,32 @@ namespace BeatEmUp.Movement
                     verticalColliderPosition.y, -verticalColliderPosition.z);
             }
 
-            horizontalAxis = horizontalAxis * LimitMovement(horizontalCollider);
+            if (bUseLimit)
+            {
+                horizontalAxis = horizontalAxis * LimitMovement(horizontalCollider);
 
-            verticalAxis = verticalAxis * LimitMovement(verticalCollider);
+                verticalAxis = verticalAxis * LimitMovement(verticalCollider);
+                freeMovement = false;
+            }
 
             movement = new Vector3(horizontalAxis, 0f, verticalAxis);
+            if (movement.magnitude < 0.01)
+            {
+                animator.SetFloat(Speed, 0);
+                return false;
+            }
+            else
+            {
+                
+                GetComponentInChildren<ActionScheduler>().StartAction(this);
+                animator.SetFloat(Speed, MathF.Max(Mathf.Abs(horizontalAxis),Mathf.Abs(verticalAxis)));
+            }
             movement.Normalize();
 
             transform.Translate(movement * movementSpeed * Time.deltaTime);
+
+            
+            return freeMovement;
         }
 
         public void StopMovement()
@@ -182,7 +191,7 @@ namespace BeatEmUp.Movement
         {
             if (!OnAir())
             {
-                ExecuteMovement(0,0);
+                ExecuteMovement(0,0, false);
                 animator.SetFloat(Speed, 0);
             }
             StopMovement();
@@ -195,7 +204,7 @@ namespace BeatEmUp.Movement
                 GetComponentInChildren<ActionScheduler>().StartAction(this);
                 bJump = false;
                 animator.SetBool("IsJumping",bJump);
-                ExecuteMovement(0, 0);
+                ExecuteMovement(0, 0, false);
                 animator.SetFloat(Speed, 0);
             }
         }

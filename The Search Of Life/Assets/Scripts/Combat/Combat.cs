@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using BeatEmUp.Controller;
 using UnityEngine;
 
@@ -10,9 +11,11 @@ namespace BeatEmUp.Combat
         [SerializeField] private float[] attacksDamage;
         private int attackSequence = 0;
         private bool bIsAttacking = false;
-        private bool bCauseDamage = false;
+        private bool bCanCauseDamage = true;
         private Animator animator;
         private static readonly int AttackSequence = Animator.StringToHash("AttackSequence");
+        private static readonly int Attacking = Animator.StringToHash("IsAttacking");
+        private static readonly int IsJumping = Animator.StringToHash("IsJumping");
 
         private void Start()
         {
@@ -24,7 +27,6 @@ namespace BeatEmUp.Combat
         {
             if (bIsAttacking)
             {
-                Debug.Log("Attacking");
                 GetComponent<ActionScheduler>().StartAction(this);
             }
             else
@@ -35,27 +37,27 @@ namespace BeatEmUp.Combat
 
         public void ExecuteAttack()
         {
-            if (bIsAttacking)
+            if (!animator)
+            {
+                animator = GetComponent<Animator>();
+            }
+            if (bIsAttacking && bCanCauseDamage)
             {
                 return;
             }
             GetComponent<ActionScheduler>().StartAction(this);
 
-            Health targetHealth = horizontalCollider.GetComponent<Health>();
-            if (targetHealth == null)
-            {
-                Attack(); // testing animation
-                return;
-            }
+            
 
-            float damage = Attack(); 
-            targetHealth.TakeDamage(damage);
+            attackSequence = 0;
+            Attack();
 
         }
         
         public void StopAttacking()
         {
             bIsAttacking = false;
+            bCanCauseDamage = true;
             if (attackSequence<attacksDamage.Length-1)
             {
                 
@@ -65,31 +67,51 @@ namespace BeatEmUp.Combat
             {
                 attackSequence = 0;
             }
-            animator.SetBool("IsAttacking",bIsAttacking);
+            animator.SetBool(Attacking,bIsAttacking);
         }
 
         public float Attack()
         {
-            if (bIsAttacking)
-            {
-                return 0;
-            }
             bIsAttacking = true;
             animator.SetInteger(AttackSequence,attackSequence);
-            animator.SetBool("IsAttacking", bIsAttacking);
-            animator.SetBool("IsAttacking", bIsAttacking);
+            animator.SetBool(Attacking, bIsAttacking);
+            if (animator.GetBool(IsJumping))
+            {
+                return attacksDamage.Last();
+            }
             return attacksDamage[attackSequence];
+        }
+
+        public void CheckIfCanCauseDamage()
+        {
+            if (!bCanCauseDamage)
+            {
+                return;
+            }
+            Collider[] colliders = Physics.OverlapBox(horizontalCollider.bounds.center, horizontalCollider.bounds.extents, horizontalCollider.transform.rotation);
+
+            foreach (Collider collider in colliders)
+            {
+                Health targetHealth = collider.GetComponent<Health>();
+                if (targetHealth != null)
+                {
+                    float damage = Attack();
+                    targetHealth.TakeDamage(damage);
+                    bCanCauseDamage = false;
+                    return;
+                }
+            }
+        }
+
+        public bool IsAttacking()
+        {
+            return bIsAttacking;
         }
 
         public void Cancel()
         {
             attackSequence = 0;
             StopAttacking();
-        }
-
-        public bool IsAttacking()
-        {
-            return bIsAttacking;
         }
     }
 }

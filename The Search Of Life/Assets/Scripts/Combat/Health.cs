@@ -10,6 +10,7 @@ namespace BeatEmUp.Combat
         [SerializeField] private UnityEvent onDie;
         [SerializeField] private float maxHealthPoints = 100;
         private float currentHealthPoints;
+        private bool isDead = false;
         
         [System.Serializable]
         public class TakeDamageEvent : UnityEvent<float>
@@ -22,9 +23,6 @@ namespace BeatEmUp.Combat
             currentHealthPoints = maxHealthPoints;
         }
 
-        private bool isDead = false;
-        private static readonly int Dead = Animator.StringToHash("IsDead");
-
         public bool IsDead()
         {
             return isDead;
@@ -32,6 +30,10 @@ namespace BeatEmUp.Combat
 
         public void TakeDamage(float damage)
         {
+            if (isDead)
+            {
+                return;
+            }
             currentHealthPoints = Mathf.Max(currentHealthPoints - damage,0);
             if (currentHealthPoints == 0)
             {

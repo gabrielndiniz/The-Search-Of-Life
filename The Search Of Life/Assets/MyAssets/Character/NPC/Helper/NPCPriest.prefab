@@ -2637,6 +2637,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2235165151400291957, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058326380071922254, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4646921374672778093, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4976461315900106707, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
       propertyPath: m_Name
       value: NPCPriest
@@ -2648,6 +2660,18 @@ PrefabInstance:
     - target: {fileID: 5907000482151890391, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5907000482151890391, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5907000482151890391, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5907000482151890391, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5907000482151890391, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}
       propertyPath: m_LocalPosition.x

@@ -41,7 +41,7 @@ namespace BeatEmUp.Controller
             
             if (horizontalInput != 0 || verticalInput != 0)
             {
-                movement.ExecuteMovement(horizontalInput, verticalInput);
+                movement.ExecuteMovement(horizontalInput, verticalInput, true);
             }
             else
             {
