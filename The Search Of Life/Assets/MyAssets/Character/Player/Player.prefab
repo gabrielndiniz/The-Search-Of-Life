@@ -778,6 +778,22 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   maxHealthPoints: 100
+--- !u!114 &2411947672609149934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735905137986630593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0847a56c9888f4d9effdc1a13dadce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interact: {fileID: 0}
+  inRange: 0
+  readyToInteract: 1
+  range: 2
 --- !u!1 &4560794744831992785 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7085269550222604227, guid: 690e0da66bef4fd44a23e1ff8757d52d, type: 3}

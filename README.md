@@ -28,12 +28,12 @@ This game was developed by Gabriel Nóbile Diniz for the Game Jam event. The goa
 
 ## Controls
 
-- Player: WSAD to move, [To Be Continue]
-- Gamepad support: arrows to move, [To Be Continue]
+- Player: WSAD to move, I to attack, O to jump.
+- Gamepad support (not tested): arrows to move. Also, there is attack and jump.
 
 ## Contributions
 
-This game was developed solely by Gabriel Nóbile Diniz as a personal project for the Game Jam. I am using the knowledge that I have from GameDev.TV and Brackeys, also Free Assets of Unity Store from Kevin Iglesias, 3dfancy, k0rveen, Polytope Studio, Ansimuz & Explosive.
+This game was developed solely by Gabriel Nóbile Diniz as a personal project for the Game Jam. I am using the knowledge that I have from GameDev.TV and Brackeys, also Free Assets of Unity Store from Clembod, John Farmer, EVILTORN, Fantom, Kevin Iglesias, 3dfancy, k0rveen, Polytope Studio, Ansimuz & Explosive.
 
 ## Acknowledgements
 

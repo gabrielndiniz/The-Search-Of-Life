@@ -108,7 +108,7 @@ namespace BeatEmUp.AI
             
             direction.y = 0;
             direction = direction.normalized;
-            movement.ExecuteMovement(direction.x, direction.z, true);
+            movement.ExecuteMovement(direction.x, direction.z, false);
             timeSinceLastMovement = 0;
             
             bIsMovingToPlayer = true;

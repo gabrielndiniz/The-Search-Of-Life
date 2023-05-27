@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Fader : MonoBehaviour
 {
-    private CanvasGroup canvasGroup;
+    [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private float fadeDuration = 1f;
 
     private Coroutine currentFadeCoroutine;
@@ -17,7 +17,8 @@ public class Fader : MonoBehaviour
 
     private void Start()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+            canvasGroup = GetComponent<CanvasGroup>();
     }
 
     public void FadeIn()
