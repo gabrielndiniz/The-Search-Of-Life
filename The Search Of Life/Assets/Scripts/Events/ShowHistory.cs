@@ -33,7 +33,7 @@ namespace BeatEmUp.Events
                 timeAfterPressing = 0;
             }
 
-            if (!bFirstTimePressingAttack && timeAfterPressing > delay && !bStartedMoving)
+            if (Input.GetButtonDown("Fire1") && !bFirstTimePressingAttack && timeAfterPressing > delay && !bStartedMoving)
             {
                 // bFirstTimePressingAttack is false and enough time has passed after pressing attack
                 combat.enabled = true;

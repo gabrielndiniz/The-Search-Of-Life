@@ -35,6 +35,7 @@ namespace BeatEmUp.Events
             // Check if the distance to the target is less than or equal to the minimum distance
             if (Vector3.Distance(transform.position, target.transform.position) <= minDistance)
             {
+                bStartMove = false;
                 // Destroy the game object
                 Destroy(gameObject);
             }
